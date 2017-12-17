@@ -1,10 +1,14 @@
-html{
+body{
 	background: url(../img/background.jpg) no-repeat center center fixed; 
 	background-size: cover;
 }
 
-.heading{
-	position: absolute;
+.container{
+	width: 600px;
+	margin-top: 80px;
+}
+
+.content{
 	color: white;
 	text-align: center;
 }
