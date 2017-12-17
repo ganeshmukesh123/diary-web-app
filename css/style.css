@@ -1,0 +1,10 @@
+html{
+	background: url(../img/background.jpg) no-repeat center center fixed; 
+	background-size: cover;
+}
+
+.heading{
+	position: absolute;
+	color: white;
+	text-align: center;
+}
