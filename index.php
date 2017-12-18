@@ -88,6 +88,27 @@
 
         });
       });
+
+
+      $("#signup").click(() => {
+        $.ajax({
+          type:"post",
+          url:"actions.php?actions=signup",
+          data:"email="+$("#InputEmail").val()+"username="+$("#InputUsername").val()+"&password="+$("#InputPassword").val(),
+          success: function(result){
+            if(result == "1"){
+              console.log("success");
+            }
+            else{
+              console.log("failure");
+            }
+          }
+
+        });
+      });
+
+
+
       
     </script>
   </body>
