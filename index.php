@@ -1,3 +1,10 @@
+<?php
+  include('connection.php');
+  if(isset($_SESSION['id'])){
+
+  }
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -102,6 +109,7 @@
             else{
               console.log("failure");
             }
+            //console.log(result);
           }
 
         });
