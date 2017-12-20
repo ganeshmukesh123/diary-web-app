@@ -24,9 +24,9 @@
 
           <h1>Diary</h1>
           <p>Store you thoughts permanent and securely.</p>
-          <div id="error"></div>
           <div id="login_signin_form">
             <p id="tag">Login using your Username and Password.</p>
+              <div class="alert alert-danger" role="alert" id="error"></div>
               <div class="form-group">
                 <input type="email" class="form-control" id="InputUsername" placeholder="Username">
               </div>
@@ -58,6 +58,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript">
       let SignUp=0;
+      $("#error").hide();
       $("#InputEmail").hide();
       $("#signup").hide();
       $("#toggleSignUp").click(()=>{
@@ -89,7 +90,8 @@
               console.log("success");
             }
             else{
-              console.log("failure");
+              //console.log("failure");
+              $("#error").html(result);
             }
           }
 
@@ -101,15 +103,16 @@
         $.ajax({
           type:"post",
           url:"actions.php?actions=signup",
-          data:"email="+$("#InputEmail").val()+"username="+$("#InputUsername").val()+"&password="+$("#InputPassword").val(),
+          data:"email="+$("#InputEmail").val()+"&username="+$("#InputUsername").val()+"&password="+$("#InputPassword").val(),
           success: function(result){
+            console.log(result);
             if(result == "1"){
               console.log("success");
             }
             else{
-              console.log("failure");
+              //console.log("failure");
+              $("#error").html(result);
             }
-            //console.log(result);
           }
 
         });
