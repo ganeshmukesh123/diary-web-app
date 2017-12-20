@@ -4,9 +4,10 @@ include('connection.php');
 if(isset($_GET['actions'])){
 
 	$allOK = true;
+	$error="";
 
 	if($_GET['actions']=='signup'){
-		$error="";
+		
 		//echo 1;
 		if(!$_POST['email']){
 			$error="An email address is required.";
@@ -62,6 +63,28 @@ if(isset($_GET['actions'])){
 	}
 	if($_GET['actions']=='login'){
 		//echo 0;
+		if(!$_POST['username']){
+			$error = "An username is required.";
+		}
+		else if(!$_POST['password']) {
+			$error = "Password is required.";
+		}
+		if($error!=""){
+			echo $error;
+			exit();
+		}
+		else{
+			$query = "SELECT * FROM `diary_users` WHERE `username` = '".mysqli_real_escape_string($conn,$_POST['username'])."' LIMIT 1";
+			$result = mysqli_query($conn,$query);
+			$row = mysqli_fetch_assoc($result);
+			if($row['password'] == md5(md5($row['user_id']).md5($_POST['password']))){
+				echo 1;
+			}
+			else{
+				$error = "Incorrect username or password.";
+			}
+			
+		}
 	}
 }
 ?>
