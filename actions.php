@@ -89,4 +89,10 @@ if(isset($_GET['actions'])){
 		}
 	}
 }
+if(isset($_GET['function'])){
+	if($_GET['function']=='logout'){
+		session_unset();
+		header('Location: '.'http://localhost:8080/diary-web-app/index.php');
+	}
+}
 ?>
