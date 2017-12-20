@@ -1,7 +1,7 @@
 <?php
   include('connection.php');
   if(isset($_SESSION['id'])){
-
+    header('Location: '.'http://localhost:8080/diary-web-app/loggedInPage.php');
   }
 ?>
 
@@ -80,6 +80,7 @@
           SignUp=0;
         }
       });
+
 
       $("#login").click(() => {
         $.ajax({

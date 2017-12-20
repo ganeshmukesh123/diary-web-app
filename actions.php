@@ -47,6 +47,7 @@ if(isset($_GET['actions'])){
 
 
 				$id=mysqli_insert_id($conn);
+				$_SESSION['id']=$id;
 
 				$query="Select * FROM `diary_users` WHERE `user_id`='".$id."'";
 				$result=mysqli_query($conn,$query);
@@ -78,6 +79,7 @@ if(isset($_GET['actions'])){
 			$result = mysqli_query($conn,$query);
 			$row = mysqli_fetch_assoc($result);
 			if($row['password'] == md5(md5($row['user_id']).md5($_POST['password']))){
+				$_SESSION['id']=$row['user_id'];
 				echo 1;
 			}
 			else{
