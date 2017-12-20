@@ -24,11 +24,11 @@
 
           <h1>Diary</h1>
           <p>Store you thoughts permanent and securely.</p>
+          <div class="alert alert-danger" role="alert" id="error"></div>
           <div id="login_signin_form">
             <p id="tag">Login using your Username and Password.</p>
-              <div class="alert alert-danger" role="alert" id="error"></div>
               <div class="form-group">
-                <input type="email" class="form-control" id="InputUsername" placeholder="Username">
+                <input type="text" class="form-control" id="InputUsername" placeholder="Username">
               </div>
               <div class="form-group">
                 <input type="email" class="form-control" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
@@ -58,6 +58,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript">
       let SignUp=0;
+      removeValOnSignUpOrLogin();
       $("#error").hide();
       $("#InputEmail").hide();
       $("#signup").hide();
@@ -86,11 +87,13 @@
           url:"actions.php?actions=login",
           data:"username="+$("#InputUsername").val()+"&password="+$("#InputPassword").val(),
           success: function(result){
+            removeValOnSignUpOrLogin();
             if(result == "1"){
               console.log("success");
             }
             else{
               //console.log("failure");
+              $("#error").show();
               $("#error").html(result);
             }
           }
@@ -105,18 +108,27 @@
           url:"actions.php?actions=signup",
           data:"email="+$("#InputEmail").val()+"&username="+$("#InputUsername").val()+"&password="+$("#InputPassword").val(),
           success: function(result){
-            console.log(result);
+            //console.log(result);
+            removeValOnSignUpOrLogin();
             if(result == "1"){
               console.log("success");
             }
             else{
               //console.log("failure");
+              $("#error").show();
               $("#error").html(result);
             }
           }
 
         });
       });
+
+      function removeValOnSignUpOrLogin() {
+        $("#InputEmail").val(null);
+        $("#InputUsername").val(null);
+        $("InputPassword").val(null);
+        return;
+      }
 
 
 
