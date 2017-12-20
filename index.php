@@ -89,7 +89,8 @@
           success: function(result){
             removeValOnSignUpOrLogin();
             if(result == "1"){
-              console.log("success");
+              //console.log("success");
+              window.location ="loggedInPage.php";
             }
             else{
               //console.log("failure");
@@ -111,7 +112,8 @@
             //console.log(result);
             removeValOnSignUpOrLogin();
             if(result == "1"){
-              console.log("success");
+              //console.log("success");
+              window.location ="loggedInPage.php";
             }
             else{
               //console.log("failure");
