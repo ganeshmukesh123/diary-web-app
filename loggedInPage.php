@@ -3,6 +3,12 @@
    if(!isset($_SESSION['id'])){
    	    header('Location: '.'http://localhost:8080/diary-web-app/index.php');
    }
+   $content="";
+   $query="SELECT `content` FROM `diary_users` WHERE `user_id`='".$_SESSION['id']."'";
+    $result=mysqli_query($conn,$query);
+    $row=mysqli_fetch_assoc($result); 
+    $content=$row['content'];
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -32,7 +38,7 @@
 
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	    <div class="form-inline mt-2 mt-md-0" style="margin-left: auto;">
-          <a class="btn btn-outline-danger my-2 my-sm-0" href="actions.php?function=logout" id="logout">Logout</a>
+          <a class="btn btn-outline-danger my-2 my-sm-0" href="#" id="logout">Logout</a>
         </div>
 
 	  </div>
@@ -41,12 +47,11 @@
 	">
 	    <textarea class="form-control" id="diary_content" rows="16">
 	       <?php
-		   $query="SELECT `content` FROM `diary_users` WHERE `user_id`='".$_SESSION['id']."'";
-		   $result=mysqli_query($conn,$query);
-		   $row=mysqli_fetch_assoc($result);
-		   echo $row['content']; ?>
+	       echo $content;
+		    ?>
 		   	
 		</textarea>
+    <a href="#" class="btn btn-primary btn-lg" role="button" aria-pressed="true" id="saveContent" style="width: 100%;margin-top: 16px;">Save</a>
 	</div>
 
     <!-- Optional JavaScript -->
@@ -56,9 +61,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
     <script type="text/javascript">
-    	$("#diary_content").bind('input propertychange',function(){
-    		console.log($("#diary_content").val());
+
+    	$("#saveContent").click(function(){
+    		//console.log($("#diary_content").val());
+    		updateContentInDB();
     	});
+
+      $("#logout").click(function(){
+        updateContentInDB();
+        window.location="actions.php?function=logout";
+      });
+
+      function updateContentInDB(){
+        $.ajax({
+          type:"post",
+          url:"actions.php?actions=updateContent",
+          data:"content="+$("#diary_content").val(),
+          success: function(result){
+            if(result == "1"){
+                  //console.log("success");
+                  //window.location ="loggedInPage.php";
+                }
+                else{
+                  //console.log("failure");
+                }
+          }
+        });
+      }
+
+
     </script>
   </body>
 </html>

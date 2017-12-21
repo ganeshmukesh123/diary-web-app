@@ -88,6 +88,12 @@ if(isset($_GET['actions'])){
 			
 		}
 	}
+
+	if($_GET['actions']=="updateContent"){
+		$query = "UPDATE `diary_users` SET `content`='".trim($_POST['content'])."' WHERE `user_id`='".$_SESSION['id']."'";
+		$result = mysqli_query($conn,$query);
+		echo 1;
+	}
 }
 if(isset($_GET['function'])){
 	if($_GET['function']=='logout'){
